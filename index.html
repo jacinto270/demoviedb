@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archivos de Nevermore • Buscador de Series Familia Addams</title>
+    <meta name="description" content="Explora el archivo oscuro de series de TVmaze con la atmósfera gótica de Miércoles Addams y la Academia Nevermore en español.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Capa de niebla atmosférica -->
+    <div class="ambient-fog"></div>
+
+    <!-- Telarañas vectoriales hiper-detalladas en esquinas -->
+    <svg class="spiderweb-corner left" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+        <path d="M0,0 L100,0 M0,0 L85,35 M0,0 L70,70 M0,0 L35,85 M0,0 L0,100" stroke="rgba(226, 232, 240, 0.4)" stroke-width="1.2"/>
+        <path d="M20,0 Q17,7 14,14 Q7,17 0,20" stroke="rgba(226, 232, 240, 0.3)" stroke-width="1"/>
+        <path d="M40,0 Q34,14 28,28 Q14,34 0,40" stroke="rgba(226, 232, 240, 0.3)" stroke-width="1"/>
+        <path d="M60,0 Q51,21 42,42 Q21,51 0,60" stroke="rgba(226, 232, 240, 0.3)" stroke-width="1"/>
+        <path d="M80,0 Q68,28 56,56 Q28,68 0,80" stroke="rgba(226, 232, 240, 0.3)" stroke-width="1"/>
+        <path d="M100,0 Q85,35 70,70 Q35,85 0,100" stroke="rgba(226, 232, 240, 0.35)" stroke-width="1.2"/>
+    </svg>
+    <svg class="spiderweb-corner right" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+        <path d="M0,0 L100,0 M0,0 L85,35 M0,0 L70,70 M0,0 L35,85 M0,0 L0,100" stroke="rgba(226, 232, 240, 0.4)" stroke-width="1.2"/>
+        <path d="M20,0 Q17,7 14,14 Q7,17 0,20" stroke="rgba(226, 232, 240, 0.3)" stroke-width="1"/>
+        <path d="M40,0 Q34,14 28,28 Q14,34 0,40" stroke="rgba(226, 232, 240, 0.3)" stroke-width="1"/>
+        <path d="M60,0 Q51,21 42,42 Q21,51 0,60" stroke="rgba(226, 232, 240, 0.3)" stroke-width="1"/>
+        <path d="M80,0 Q68,28 56,56 Q28,68 0,80" stroke="rgba(226, 232, 240, 0.3)" stroke-width="1"/>
+        <path d="M100,0 Q85,35 70,70 Q35,85 0,100" stroke="rgba(226, 232, 240, 0.35)" stroke-width="1.2"/>
+    </svg>
+
+    <!-- Barra de Herramientas Gótica Superior -->
+    <header class="gothic-toolbar">
+        <div class="toolbar-brand">
+            <img src="assets/nevermore_crest.jpg" alt="Escudo de Nevermore">
+            <span>Academia Nevermore • Registro de Series</span>
+        </div>
+        <div class="toolbar-actions">
+            <button class="icon-btn" id="soundToggleBtn" onclick="toggleSoundEffect()" title="Activar/Silenciar efectos de sonido">
+                <span id="soundIcon">🔊</span> <span id="soundText">Audio Activo</span>
+            </button>
+            <button class="icon-btn" onclick="summonThingDirectly()" title="Llamar a Cosa con la campanilla">
+                🛎️ Llamar a Cosa
+            </button>
+        </div>
+    </header>
+
+    <!-- Cabecera Heroica Principal -->
+    <section class="nevermore-header">
+        <div class="crest-wrapper">
+            <div class="crest-glow"></div>
+            <img src="assets/nevermore_crest.jpg" alt="Escudo de la Academia Nevermore" class="crest-image">
+        </div>
+
+        <div class="candles-flank">
+            <span class="flame">🕯️</span>
+            <span style="font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 3px; color: #a855f7;">SIC VIS NATURAE</span>
+            <span class="flame">🕯️</span>
+        </div>
+
+        <h1 class="main-title">Archivos de Nevermore</h1>
+        <p class="subtitle">Buscador Oculto de Series • Edición Familia Addams</p>
+
+        <!-- Widget Máquina de Escribir de Miércoles -->
+        <div class="wednesday-quote-box">
+            <span class="quote-icon">🖤</span>
+            <div style="flex:1;">
+                <p class="quote-text" id="wednesdayQuote">"Actúo como si no me importara si la gente me odia. En el fondo... lo disfruto secretamente."</p>
+                <span class="quote-author">— Miércoles Addams</span>
+            </div>
+            <button class="icon-btn" onclick="cycleQuote()" title="Leer otra sentencia" style="padding: 4px 8px;">✒️</button>
+        </div>
+
+        <!-- Botón del Chasquido Clásico -->
+        <div>
+            <button class="snap-button" onclick="triggerAddamsSnap()" title="¡El chasquido de dedos de la familia Addams!">
+                <span>🫰</span> Chasquido Addams (¡Snap! ¡Snap!)
+            </button>
+        </div>
+    </section>
+
+    <!-- Contenedor Principal (Buscador + Bóvedas) -->
+    <div class="main-container">
+        
+        <!-- Panel Izquierdo: Buscador y Resultados -->
+        <main>
+            <!-- Sección de Búsqueda -->
+            <section class="search-section">
+                <div class="search-box-row">
+                    <div class="search-input-wrapper">
+                        <span class="search-icon-left">🔮</span>
+                        <input type="text" id="searchInput" class="gothic-input" 
+                               placeholder="Invoca el nombre de una serie... (ej: Miércoles, La familia Addams, Dark)" 
+                               onkeypress="handleKeyPress(event)">
+                    </div>
+                    <button class="btn-primary" onclick="searchShow()">
+                        <span>🔍</span> Buscar
+                    </button>
+                    <button class="btn-spooky" onclick="triggerSpiderSustain()" title="Invocar un sustillo arácnido">
+                        <span>🕷️</span> Susto
+                    </button>
+                </div>
+
+                <!-- Filtros rápidos temáticos en español -->
+                <div class="quick-tags">
+                    <span class="tag-label">Invocaciones Rápidas:</span>
+                    <button class="filter-chip" onclick="quickSearch('Wednesday', 'Miércoles')">🖤 Miércoles</button>
+                    <button class="filter-chip" onclick="quickSearch('The Addams Family', 'La Familia Addams')">🥀 La Familia Addams</button>
+                    <button class="filter-chip" onclick="quickSearch('Dark', 'Dark')">⏳ Dark</button>
+                    <button class="filter-chip" onclick="quickSearch('Penny Dreadful', 'Penny Dreadful')">🩸 Penny Dreadful</button>
+                    <button class="filter-chip" onclick="quickSearch('Stranger Things', 'Stranger Things')">🚲 Stranger Things</button>
+                    <button class="filter-chip" onclick="quickSearch('American Horror Story', 'AHS: Terror Americano')">🎪 Terror Americano (AHS)</button>
+                    <button class="filter-chip" onclick="quickSearch('Interview with the Vampire', 'Entrevista con el Vampiro')">🧛 Entrevista con el Vampiro</button>
+                    <button class="filter-chip" onclick="quickSearch('Castlevania', 'Castlevania')">🦇 Castlevania</button>
+                </div>
+            </section>
+
+            <!-- Contenedor dinámico de resultados -->
+            <div id="resultsContainer">
+                <!-- Se llena dinámicamente mediante app.js -->
+            </div>
+        </main>
+
+        <!-- Panel Derecho: Bóvedas y Criptas (Sidebar) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">
+                    <span>⚰️</span> Bóvedas Addams
+                </h2>
+                <span style="font-size: 0.75rem; color: #a855f7; font-family: var(--font-subheading);">COLECCIÓN</span>
+            </div>
+
+            <!-- Creador de Carpetas / Bóvedas -->
+            <div class="folder-creator">
+                <input type="text" id="newFolderInput" placeholder="Nombre de la nueva bóveda..." onkeypress="handleFolderKeyPress(event)">
+                <button class="btn-add-folder" onclick="createFolder()" title="Crear nueva bóveda">+</button>
+            </div>
+
+            <!-- Listado de Bóvedas -->
+            <div id="foldersContainer">
+                <!-- Carpetas inyectadas por app.js -->
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- COSA (Thing) Hiperrealista -->
+    <div id="thing-container" onclick="thingClick()" title="¡Es Cosa! Haz clic para interactuar con la mano">
+        <div class="thing-bubble" id="thingBubble">
+            🖐️ Cosa te observa desde la penumbra...
+        </div>
+        <div class="thing-photo-frame">
+            <img src="assets/thing.jpg" alt="Cosa (The Thing) de los Addams" class="thing-photo">
+        </div>
+    </div>
+
+    <!-- Botón de Acceso Directo a Cosa si está oculto -->
+    <button class="call-thing-badge" onclick="summonThingDirectly()">
+        <span>🖐️</span> Despertar a Cosa
+    </button>
+
+    <!-- Modal de Inspección Gótica (El Archivo Negro) -->
+    <div class="gothic-modal-backdrop" id="showModal" onclick="handleModalBackdropClick(event)">
+        <div class="gothic-modal" id="modalDialog">
+            <button class="modal-close-btn" onclick="closeModal()" title="Cerrar expediente">✕</button>
+            <div id="modalContent">
+                <!-- Contenido inyectado dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
