@@ -37,6 +37,9 @@
             <span>Academia Nevermore • Registro de Series</span>
         </div>
         <div class="toolbar-actions">
+            <button class="icon-btn toolbar-melody-btn" id="toolbarMelodyBtn" onclick="toggleAddamsMelody()" title="Reproducir o pausar la melodía de los Addams">
+                <span id="tbMelodyIcon">🎵</span> <span id="tbMelodyText">Melodía Addams</span>
+            </button>
             <button class="icon-btn" id="soundToggleBtn" onclick="toggleSoundEffect()" title="Activar/Silenciar efectos de sonido">
                 <span id="soundIcon">🔊</span> <span id="soundText">Audio Activo</span>
             </button>
@@ -72,11 +75,166 @@
             <button class="icon-btn" onclick="cycleQuote()" title="Leer otra sentencia" style="padding: 4px 8px;">✒️</button>
         </div>
 
-        <!-- Botón del Chasquido Clásico -->
-        <div>
-            <button class="snap-button" onclick="triggerAddamsSnap()" title="¡El chasquido de dedos de la familia Addams!">
-                <span>🫰</span> Chasquido Addams (¡Snap! ¡Snap!)
-            </button>
+        <!-- ============================================================== -->
+        <!-- FONÓGRAFO ADDAMS: MELODÍA OFICIAL DE LA FAMILIA ADDAMS         -->
+        <!-- ============================================================== -->
+        <div class="addams-gramophone-panel" id="addamsGramophone">
+            <div class="gramophone-header">
+                <div class="gramophone-badge">
+                    <span class="pulse-disc" id="pulseDisc">💿</span>
+                    <span>Fonógrafo de la Mansión • Melodía de los Addams</span>
+                </div>
+                <div class="equalizer-bars" id="melodyEqualizer">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+
+            <div class="gramophone-body">
+                <div class="gramophone-info">
+                    <h2 class="gramophone-title">Tema Clásico de la Familia Addams</h2>
+                    <p class="gramophone-subtitle">
+                        Composición de Vic Mizzy • Con Clavicémbalo, Contrabajo y Chasquidos Auténticos 🫰
+                    </p>
+                    <div class="melody-lyric-pill" id="melodyLyricDisplay">
+                        <span id="lyricIcon">🫰</span>
+                        <span id="lyricText">Pulsa "Tocar Melodía" para escuchar la música de la familia Addams...</span>
+                    </div>
+                </div>
+
+                <div class="gramophone-controls">
+                    <!-- Botón Principal Play / Pause -->
+                    <button class="btn-melody-play" id="btnMelodyPlay" onclick="toggleAddamsMelody()">
+                        <span id="playIcon">▶️</span> <span id="playText">Tocar Melodía</span>
+                    </button>
+
+                    <!-- Botón Stop -->
+                    <button class="btn-melody-control" onclick="stopAddamsMelody()" title="Detener la música">
+                        <span>⏹️</span>
+                    </button>
+
+                    <!-- Selector de Instrumento -->
+                    <div class="control-group">
+                        <label for="instrumentSelect" class="control-label">Timbre:</label>
+                        <select id="instrumentSelect" class="gothic-select" onchange="changeInstrument(this.value)">
+                            <option value="harpsichord">🎹 Clavicémbalo de Lurch</option>
+                            <option value="organ">⛪ Órgano de Cripta</option>
+                            <option value="musicbox">🧸 Caja Musical Macabra</option>
+                        </select>
+                    </div>
+
+                    <!-- Botón Bucle / Loop -->
+                    <button class="btn-melody-toggle active" id="btnLoopToggle" onclick="toggleMelodyLoop()" title="Repetición continua al terminar">
+                        <span id="loopIcon">🔁</span> Bucle
+                    </button>
+
+                    <!-- Control de Volumen -->
+                    <div class="volume-slider-group">
+                        <span id="melodyVolIcon" title="Volumen">🔊</span>
+                        <input type="range" id="melodyVolumeSlider" min="0" max="1" step="0.05" value="0.7" 
+                               oninput="changeMelodyVolume(this.value)" title="Volumen de la música">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- BÓVEDA SONORA: BOTONES DE EFECTOS TENEBROSOS                   -->
+        <!-- ============================================================== -->
+        <div class="spooky-soundboard-panel">
+            <div class="soundboard-header">
+                <h3 class="soundboard-title">
+                    <span>🔮</span> Cámara de Sonidos Tenebrosos
+                </h3>
+                <span class="soundboard-hint">Haz clic en los botones para invocar cada efecto acústico</span>
+            </div>
+
+            <div class="soundboard-grid">
+                <!-- 1. Aullido de Lobo -->
+                <button class="sound-card-btn" id="btnWolf" onclick="playWolfHowl()" title="Escuchar el aullido estremecedor de un lobo">
+                    <span class="sound-card-icon">🐺</span>
+                    <div class="sound-card-text">
+                        <span class="sound-card-name">Aullido de Lobo</span>
+                        <span class="sound-card-desc">Lamento salvaje a la luna</span>
+                    </div>
+                    <span class="sound-card-wave">〰️</span>
+                </button>
+
+                <!-- 2. Voces Fantasmales -->
+                <button class="sound-card-btn" id="btnGhost" onclick="playGhostVoices()" title="Escuchar lamentos y susurros de fantasmas">
+                    <span class="sound-card-icon">👻</span>
+                    <div class="sound-card-text">
+                        <span class="sound-card-name">Voces Fantasmales</span>
+                        <span class="sound-card-desc">Coro de almas en pena</span>
+                    </div>
+                    <span class="sound-card-wave">〰️</span>
+                </button>
+
+                <!-- 3. Trueno Oscuro -->
+                <button class="sound-card-btn" id="btnThunder" onclick="playThunderSoundWithHighlight()" title="Estruendo de tormenta sobre Nevermore">
+                    <span class="sound-card-icon">⚡</span>
+                    <div class="sound-card-text">
+                        <span class="sound-card-name">Trueno Oscuro</span>
+                        <span class="sound-card-desc">Estruendo de medianoche</span>
+                    </div>
+                    <span class="sound-card-wave">〰️</span>
+                </button>
+
+                <!-- 4. Puerta de Cripta -->
+                <button class="sound-card-btn" id="btnDoor" onclick="playCreakyDoor()" title="Chirrido aterrador de bisagras oxidadas">
+                    <span class="sound-card-icon">🚪</span>
+                    <div class="sound-card-text">
+                        <span class="sound-card-name">Puerta de Cripta</span>
+                        <span class="sound-card-desc">Goznes rechinantes</span>
+                    </div>
+                    <span class="sound-card-wave">〰️</span>
+                </button>
+
+                <!-- 5. Órgano Fúnebre -->
+                <button class="sound-card-btn" id="btnOrgan" onclick="playPhantomOrgan()" title="Acorde majestuoso de órgano de tubos de catedral">
+                    <span class="sound-card-icon">🎹</span>
+                    <div class="sound-card-text">
+                        <span class="sound-card-name">Órgano Fúnebre</span>
+                        <span class="sound-card-desc">Acorde siniestro de catedral</span>
+                    </div>
+                    <span class="sound-card-wave">〰️</span>
+                </button>
+
+                <!-- 6. Enjambre Murciélagos -->
+                <button class="sound-card-btn" id="btnBats" onclick="playBatsFlutter()" title="Aleteo masivo de murciélagos saliendo de la torre">
+                    <span class="sound-card-icon">🦇</span>
+                    <div class="sound-card-text">
+                        <span class="sound-card-name">Murciélagos</span>
+                        <span class="sound-card-desc">Aleteo veloz en la noche</span>
+                    </div>
+                    <span class="sound-card-wave">〰️</span>
+                </button>
+
+                <!-- 7. Risa Siniestra -->
+                <button class="sound-card-btn" id="btnLaugh" onclick="playEvilLaugh()" title="Carcajada siniestra de bruja en el calabozo">
+                    <span class="sound-card-icon">🪓</span>
+                    <div class="sound-card-text">
+                        <span class="sound-card-name">Risa Siniestra</span>
+                        <span class="sound-card-desc">Carcajada macabra</span>
+                    </div>
+                    <span class="sound-card-wave">〰️</span>
+                </button>
+
+                <!-- 8. Chasquido Clásico Addams -->
+                <button class="sound-card-btn snap-special-btn" id="btnSnap" onclick="triggerAddamsSnap()" title="¡Snap! ¡Snap! El clásico chasquido Addams">
+                    <span class="sound-card-icon">🫰</span>
+                    <div class="sound-card-text">
+                        <span class="sound-card-name">Chasquido Addams</span>
+                        <span class="sound-card-desc">¡Snap! ¡Snap! Clásico</span>
+                    </div>
+                    <span class="sound-card-wave">✨</span>
+                </button>
+            </div>
         </div>
     </section>
 
